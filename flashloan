@@ -12,3 +12,4 @@ module.exports = {
         // Add other networks as needed
     },
 };
+npx hardhat run scripts/deploy.js --network mainnet
