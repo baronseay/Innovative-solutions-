@@ -1,0 +1,31 @@
+#!/bin/bash
+
+echo "🟢 Starting Nexus System Deployment..."
+
+# Define variables
+PROJECT_DIR="/var/www/nexus-dashboard"
+REPO_URL="https://github.com/your-repo/nexus-dashboard.git"
+NODE_APP="nexus-dashboard.js"
+DEPLOY_LOG="/var/log/nexus-deployment.log"
+
+# Step 1: Clone or Pull Latest Code
+if [ -d "$PROJECT_DIR" ]; then
+    echo "🔄 Updating existing project..." | tee -a $DEPLOY_LOG
+    cd $PROJECT_DIR
+    git pull origin main
+else
+    echo "🚀 Cloning project..." | tee -a $DEPLOY_LOG
+    git clone $REPO_URL $PROJECT_DIR
+    cd $PROJECT_DIR
+fi
+
+# Step 2: Install Dependencies
+echo "📦 Installing dependencies..." | tee -a $DEPLOY_LOG
+npm install
+
+# Step 3: Start Application
+echo "🚀 Starting Nexus Dashboard..." | tee -a $DEPLOY_LOG
+pm2 start $NODE_APP --name "nexus-dashboard"
+
+# Final Step: Confirm Deployment
+echo "✅ Deployment complete. Access your dashboard at https://node1.live-network.com/deploy" | tee -a $DEPLOY_LOG
