@@ -1,0 +1,5 @@
+mkdir omni-divine-ai
+cd omni-divine-ai
+npm init -y
+npm install express body-parser cors
+node server.js
